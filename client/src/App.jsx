@@ -6,7 +6,7 @@ import Project from './pages/Project'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import About from './pages/About'
-import Header from './pages/components/Header'
+import Header from './components/Header'
 
 export default function App() {
   return (
