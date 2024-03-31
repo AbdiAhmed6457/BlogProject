@@ -30,6 +30,7 @@ useEffect(() => {
 }, [imageFile])
 
 const uploadImage = async() =>{
+  setImageFileUploadError(null);
 const storage = getStorage(app);
 const fileName = new Date().getTime() + imageFile.name;
 const storageRef = ref(storage, fileName)
@@ -44,7 +45,10 @@ uploadTask.on(
     setImageFileUploadProgress(progress.toFixed(0));
   },
   (error) => {
-    setImageFileUploadError('could not upload may be your file is greater than 2MB')
+    setImageFileUploadError('could not upload may be your file is greater than 2MB');
+    setImageFileUploadProgress(null);
+    setImageFile(null);
+    setImageFileUrl(null);
   }, 
   () => {
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
