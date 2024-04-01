@@ -13,8 +13,9 @@ export default function DashProfile() {
   const [imageFileUploadProgress, setImageFileUploadProgress ] = useState(null)
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const filePickerRef = useRef(); 
+  const [formData, setFormData] = useState({});
 
- console.log(imageFileUploadProgress, imageFileUploadError);
+//  console.log(imageFileUploadProgress, imageFileUploadError);
 
   const handleImageChange = (e) => {
      const file = e.target.files[0];
@@ -53,16 +54,24 @@ uploadTask.on(
   () => {
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
       setImageFileUrl(downloadURL);
+      setFormData({...formData, proflePicture: downloadURL});
     });
   }
 
  );
 
 };
+      const handleChange = (e) => {
+        setFormData({...formData, [e.target.id]: e.target.value});
+      }
+      
+      
+
+
   return (
     <div className='max-w-lg mx-auto p-3 w-full'>
       <h1 className='my-7 text-center font-semibold text-3xl'> Profile</h1>
-      <form className='flex flex-col gap-4'> 
+      <form onSubmit={handleSubmit} className='flex flex-col gap-4'> 
       <input type='file' accept='image/*' onChange={handleImageChange} ref={filePickerRef} hidden/>
         <div className=" relative w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full" onClick={() => filePickerRef.current.click()}>
 
@@ -91,9 +100,15 @@ uploadTask.on(
         </div>
         {imageFileUploadError && <Alert color='failure'> {imageFileUploadError}</Alert>}
         
-          <TextInput type='text' id='username' placeholder='username' defaultValue={currentUser.username}/>
-          <TextInput type='email' id='email' placeholder='email' defaultValue={currentUser.email}/>
-          <TextInput type='password' id='password' placeholder='password' />
+          <TextInput type='text' id='username' placeholder='username' defaultValue={currentUser.username}
+             onChange={handleChange}
+          />
+          <TextInput type='email' id='email' placeholder='email' defaultValue={currentUser.email} 
+             onChange={handleChange}
+          />
+          <TextInput type='password' id='password' placeholder='password' 
+             onChange={handleChange}
+          />
           <Button type='submit ' gradientDueTone='purpleToBlue' outline>
             Update
           </Button>
