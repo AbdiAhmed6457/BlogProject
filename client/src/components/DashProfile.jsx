@@ -11,9 +11,9 @@ import {
   updateSuccess,
   updateFailure,
   deleteUserStart,
+  signoutSuccess,
   deleteUserSuccess,
   deleteUserFailure,
-  signoutSuccess,
 } from '../redux/user/userSlice';
 
 export default function DashProfile() {
@@ -138,6 +138,22 @@ uploadTask.on(
         }
       }
 
+      const handleSignout = async () => {
+        try {
+          const res = await fetch('/api/user/signout', {
+            method: 'POST',
+          });
+          const data = await res.json();
+          if(!res.ok){
+            console.log(data.message);
+          }else{
+          dispatch(signoutSuccess());
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+
 
 
   return (
@@ -188,12 +204,13 @@ uploadTask.on(
 
     <div className="text-red-500 flex justify-between mt-5">
       <span onClick={() => setShowModal(true)} className='cursor-pointer'>Delete Account</span>
-      <span className='cursor-pointer'> Sign Out</span>
+      <span onClick={handleSignout} className='cursor-pointer'> Sign Out</span>
     </div>
     {updateUserSuccess && (
       <Alert color='success' className='mt-5'>
         {updateUserSuccess}
       </Alert>
+
     )}
     {updateUserError && (
       <Alert color='failure' className='mt-5'>
