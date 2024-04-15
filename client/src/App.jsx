@@ -11,6 +11,7 @@ import UpdatePost from './pages/UpdatePost';
 import Footer from './components/Footer'
 import PrivateRoute from './components/PrivateRoute'
 import CreatePost from './pages/CreatePost';
+import Projects from './pages/Project'
 import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRout';
 import PostPage from './pages/PostPage';
 import ScrollToTop from './components/ScroollToTop'
@@ -36,7 +37,7 @@ export default function App() {
           <Route path='/update-post/:postId' element={<UpdatePost />} />
         </Route>
 
-        {/* <Route path='/projects' element={<Projects />} /> */}
+        <Route path='/projects' element={<Projects />} />
         <Route path='/post/:postSlug' element={<PostPage />} />
       </Routes>
         <Footer/>
