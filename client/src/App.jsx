@@ -14,6 +14,7 @@ import CreatePost from './pages/CreatePost';
 import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRout';
 import PostPage from './pages/PostPage';
 import ScrollToTop from './components/ScroollToTop'
+import Search from './pages/Search'
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         <Route path='/project' element={<Project/>}/>
         <Route path='/signin' element={<SignIn/>}/>
         <Route path='/signup' element={<SignUp/>}/>
+        <Route path='/search' element={<Search/>}/>
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
         </Route>
