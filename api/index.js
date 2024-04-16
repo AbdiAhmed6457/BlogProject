@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import postRoutes from './routers/post.route.js'
 import mongoose from 'mongoose';
 import commentRoutes from './routers/comment.route.js'
+import path from 'path'
 import cors from 'cors'
 dotenv.config();
 
@@ -18,14 +19,10 @@ catch((err) => {
 })
 
 
-// const __dirname = path.resolve();
+const __dirname = path.resolve();
 
 const app = express();
-app.use(cors(
-   { origin: ["https://deploy-mern-1whq.vercel.app"],
-    methods: ["POST", "GET"],
-    credentials: true}
-))
+
 
 app.use(express.json());
 app.use(cookieParser());
@@ -39,11 +36,11 @@ app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', commentRoutes);
 
-// app.use(express.static(path.join(__dirname, '/client/dist')));
+app.use(express.static(path.join(__dirname, '/client/dist')));
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
