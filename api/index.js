@@ -7,7 +7,6 @@ import postRoutes from './routers/post.route.js'
 import mongoose from 'mongoose';
 import commentRoutes from './routers/comment.route.js'
 import path from 'path'
-import cors from 'cors'
 dotenv.config();
 
 mongoose.connect(process.env.MONGOURL)
